@@ -19,6 +19,7 @@ function generateBarCode() {
 
     document.getElementById("recname").innerHTML= name;
     document.getElementById("recupi").innerHTML= upiid;
+    document.getElementById("recamt").innerHTML= amt;
     $(document).ready(function(){
            $('#myModal').modal('show')
         });

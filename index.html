@@ -1,81 +1,136 @@
 <html>
 
 <head>
-  <title>Payment QR Generator</title>
+  <title>UPI Payment QR Generator
+  </title>
+
+  <link rel="icon" type="image/x-icon" href="./img/favicon.png">
 
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+  <link rel="stylesheet" href="./css/style.css">
 </head>
 
 <body>
-
-  <div class="container">
-    <div class="row">
-      <form onsubmit="generateBarCode()" id="myForm" method="dialog">
-        <div class="mb-3">
-          <label for="Name" class="form-label"><i class="fa-solid fa-user"></i> Reciever's Name*</label>
-          <input type="text" class="form-control" id="name" placeholder="Reciever's Name" required value="test ">
-        </div>
-
-        <div class="mb-3">
-          <label for="upiid" class="form-label"><i class="fa-solid fa-receipt"></i> Reciever's UPI Id (VPA)*</label>
-          <input type="text" class="form-control" id="upiid" placeholder="recieversname@vpa" required
-            value="sendtovarun@apl">
-        </div>
-
-
-
-        <div class="mb-3">
-          <label for="amount" class="form-label"><i class="fa-solid fa-indian-rupee-sign"></i> Amount</label>
-          <input type="number" class="form-control" id="amount" placeholder="10000">
-        </div>
-
-
-
-        <button type="submit" class="btn btn-primary"><i class="fa-solid fa-qrcode"></i> Generate Payment QR</button>
-
-      </form>
-
-      <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h1 class="modal-title fs-5" id="exampleModalLabel">Your Payment Code</h1>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-              <div class="alert alert-info" role="alert">
-                Scan This Code Using Any UPI Supported App for Payment.
-              </div>
-              <div class="container-fluid">
-                <div class="row">
-                  <div class="col-md-6"><canvas id="qrcode" class="qrcode"></canvas></div>
-                  <div class="col-md-6">
-                    <h5>Reciever Details</h5>
-                    <hr />
-                    <strong>Reciever's Name: </strong>
-                    <p id="recname"></p>
-                    <strong>Reciever's UPI ID: </strong>
-                    <p id="recupi"></p>
-                  </div>
-                </div>
-
-
-              </div>
-
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="fa-solid fa-xmark"></i> Close</button>
-              <button type="button" class="btn btn-primary" onclick="downloadQR()"><i class="fa-solid fa-download"> </i> Download Image</button>
-            </div>
+<!--Main Content-->
+  <div class="container d-flex align-items-center justify-content-center mainDiv mt-6">
+    <div class="container mt-5">
+      <img src="./img/UPI-White.png" width="20%">
+      <h2 class="mt-4">UPI Payment QR Generator</h2>
+      <p>Create a QR code for any upi/vpa payment. Simple and efficient method for creating payment codes with a single
+        button click. With the ability to download QR codes.</p>
+      <hr />
+      <p class="text-danger">* Marked Fields are Required.</p>
+    </div>
+    <div class="container mt-5">
+      <div class="row">
+        <form onsubmit="generateBarCode()" id="myForm" method="dialog">
+          <div class="mb-3">
+            <label for="Name" class="form-label"><i class="fa-solid fa-user"></i> <strong>Receiver's Name*</strong>
+            </label>
+            <input type="text" class="form-control" id="name" placeholder="Receiver's Name" required>
           </div>
-        </div>
+
+          <div class="mb-3">
+            <label for="upiid" class="form-label"><i class="fa-solid fa-receipt"></i> <strong> Receiver's UPI Id
+                (VPA)*</strong> </label>
+            <input type="text" class="form-control" id="upiid" placeholder="Receiversname@vpa" required
+              >
+          </div>
+
+
+
+          <div class="mb-3">
+            <label for="amount" class="form-label"><i class="fa-solid fa-indian-rupee-sign"></i> <strong> Amount in
+                INR</strong> </label>
+            <input type="number" class="form-control" id="amount" placeholder="10000">
+          </div>
+
+
+
+          <button type="submit" class="btn btn-success mb-5"><i class="fa-solid fa-qrcode"></i> Generate Payment
+            QR</button>
+
+        </form>
       </div>
-
-
     </div>
   </div>
+
+  <!--Modal Content-->
+  <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header bg-secondary">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Your Payment Code</h1>
+          <button type="button" class="btn-close bg-light" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body bg-dark">
+
+          <div class="alert alert-success" role="alert">
+            Scan This Code Using Any UPI Supported App.
+          </div>
+
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-md-6"><canvas id="qrcode" class="qrcode"></canvas></div>
+              <span class="col-md-6">
+                <h5>Receiver Details</h5>
+                <hr />
+                <strong>Receiver's Name: </strong>
+                <p id="recname"></p>
+                <strong>Receiver's UPI ID: </strong>
+                <p id="recupi"></p>
+                <strong>Amount: </strong>
+                <p id="recamt"></p>
+              </span>
+                </div>
+              
+              </div>
+
+            </div>
+          
+        <div class="modal-footer bg-secondary">
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal"><i class="fa-solid fa-xmark"></i>
+            Close</button>
+          <button type="button" class="btn btn-warning" onclick="downloadQR()"><i class="fa-solid fa-download"> </i>
+            Download Image</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <nav class="navbar fixed-bottom">
+    <div class="container-fluid">
+      <iframe
+        src="https://ghbtns.com/github-btn.html?user=vaarunh&repo=upiqrgenerator&type=star&count=true&size=large"
+        frameborder="0"
+        scrolling="0"
+        width="170"
+        height="30"
+        title="GitHub"
+      ></iframe>
+      <iframe
+        src="https://ghbtns.com/github-btn.html?user=vaarunh&type=follow&count=true&size=large"
+        frameborder="0"
+        scrolling="0"
+        width="170"
+        height="30"
+        title="GitHub"
+      ></iframe>
+      <iframe
+        src="https://ghbtns.com/github-btn.html?user=vaarunh&repo=upiqrgenerator&type=fork&count=true&size=large"
+        frameborder="0"
+        scrolling="0"
+        width="170"
+        height="30"
+        title="GitHub"
+      ></iframe>
+    </div>
+  </nav>
 </body>
+
+
 <script src="./js/codeGenerate.js"></script>
 <script src="./js/downloadQr.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
@@ -87,4 +142,6 @@
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
 <script src="https://kit.fontawesome.com/5235f9bb5b.js" crossorigin="anonymous"></script>
+
+
 </html>
