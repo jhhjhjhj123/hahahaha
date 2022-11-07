@@ -3,7 +3,7 @@
 Create a QR code for any upi/vpa payment. Simple and efficient method for creating payment codes with a single button click. With the ability to download QR codes.
 
 #  Site Demo 
-**Demo Link:** [upiqrgenerator.vercel.app](upiqrgenerator.vercel.app)
+**Demo Link:** [upiqrgenerator.vercel.app](https://upiqrgenerator.vercel.app)
 
 # Technologies Used
 
