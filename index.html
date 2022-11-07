@@ -1,0 +1,106 @@
+<html>
+
+<head>
+  <title>Testing QR code</title>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+  <script type="text/javascript">
+    function generateBarCode() {
+
+
+      var name = $('#name').val();
+      if (name == '') {
+        alert('Name is Blank');
+        document.getElementById("exampleModal").style.display = "none";
+
+      }
+      var upiid = $('#upiid').val();
+      if (upiid == '') {
+        alert('UPI ID/VPA is Blank');
+        document.getElementById("exampleModal").style.display = "none";
+      }
+
+
+      var amt = $('#amount').val();
+      if (amt == '') {
+        var url = 'upi://pay?cu=INR&pa=' + upiid + '&pn=' + name;
+      }
+      else {
+        var url = 'upi://pay?cu=INR&pa=' + upiid + '&pn=' + name + '&am=' + amt;
+      }
+      var note = $('#note').val();
+
+      let qrcodeContainer = document.getElementById("qrcode");
+      qrcodeContainer.innerHTML = "";
+      new QRious({
+        element: qrcodeContainer,
+        value: url
+      });
+
+    }
+
+  </script>
+</head>
+
+<body>
+  <form>
+    <div class="container">
+      <div class="row">
+
+        <div class="mb-3">
+          <label for="Name" class="form-label">Reciever's Name*</label>
+          <input type="text" class="form-control" id="name" placeholder="Reciever's Name" required>
+        </div>
+
+        <div class="mb-3">
+          <label for="upiid" class="form-label">Reciever's UPI Id (VPA)*</label>
+          <input type="text" class="form-control" id="upiid" placeholder="recieversname@vpa" required>
+        </div>
+
+        <div class="mb-3">
+          <label for="amount" class="form-label">Amount</label>
+          <input type="number" class="form-control" id="amount" placeholder="10000" required>
+        </div>
+
+        <div class="mb-3">
+          <label for="note" class="form-label">Transaction Note</label>
+          <input type="text" class="form-control" id="note" placeholder="Hi I am sending the money for...." required>
+        </div>
+
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
+          onclick="generateBarCode()">Generate Qr</button>
+
+  </form>
+
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Your Payment Code</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <canvas id="qrcode" class="qrcode">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <a id="download"><button type="button" class="btn btn-primary">Download Image</button></a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  </div>
+  </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+  integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js"
+  integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk" crossorigin="anonymous"></script>
+
+</html>
