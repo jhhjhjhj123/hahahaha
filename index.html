@@ -33,6 +33,15 @@
           });
     }
 
+    function downloadQR() {
+    var canvas = document.getElementById("qrcode");
+    var image = canvas.toDataURL();
+    var aDownloadLink = document.createElement('a');
+    aDownloadLink.download = 'Payment Code.png';
+    aDownloadLink.href = image;
+    aDownloadLink.click();
+    }
+
 
   </script>
 </head>
@@ -44,12 +53,12 @@
         <form onsubmit="generateBarCode()" id="myForm" method="dialog">
         <div class="mb-3">
           <label for="Name" class="form-label">Reciever's Name*</label>
-          <input type="text" class="form-control" id="name" placeholder="Reciever's Name" required>
+          <input type="text" class="form-control" id="name" placeholder="Reciever's Name" required value="test ">
         </div>
 
         <div class="mb-3">
           <label for="upiid" class="form-label">Reciever's UPI Id (VPA)*</label>
-          <input type="text" class="form-control" id="upiid" placeholder="recieversname@vpa" required>
+          <input type="text" class="form-control" id="upiid" placeholder="recieversname@vpa" required value="sendtovarun@apl">
         </div>
 
         
@@ -93,7 +102,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <a id="download"><button type="button" class="btn btn-primary">Download Image</button></a>
+         <button type="button" class="btn btn-primary" onclick="downloadQR()">Download Image</button>
         </div>
       </div>
     </div>
